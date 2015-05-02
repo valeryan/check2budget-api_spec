@@ -1,13 +1,19 @@
 FORMAT: 1A
-HOST: http://check2budget.apiblueprint.org/
+HOST: http://polls.apiblueprint.org/
 
 # check2budget
 
-Check 2 Budget is and API for building and managaing budgets
+Polls is a simple API allowing consumers to view polls and vote in them.
 
-# Check 2 Budget API Root [/]
+# Polls API Root [/]
 
-Manage one or more household budgets in a convient way.
+This resource does not have any attributes. Instead it offers the initial
+API affordances in the form of the links in the JSON body.
+
+It is recommend to follow the “url” link values,
+[Link](https://tools.ietf.org/html/rfc5988) or Location headers where
+applicable to retrieve resources. Instead of constructing your own URLs,
+to keep your client decoupled from implementation details.
 
 ## Retrieve the Entry Point [GET]
 
