@@ -10,6 +10,8 @@
     "gulp-concat": "^2.4.3",
     "gulp-footer": "^1.0.5",
     "gulp-header": "^1.2.2",
-    "gulp-shell": "^0.2.11"
+    "gulp-shell": "^0.2.11",
+    "gulp-git": "^1.2.1",
+    "gulp-prompt": "^0.1.2"
   }
 }
