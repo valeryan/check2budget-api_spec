@@ -53,7 +53,13 @@ gulp.task('commit', function(){
     }));
 });
 
-gulp.task('publish', ['build', 'add', 'commit']);
+gulp.task('push', function(){
+  git.push('origin', 'master', function (err) {
+    if (err) throw err;
+  });
+});
+
+gulp.task('publish', ['build', 'add', 'commit', 'push']);
 
 gulp.task('connect', function() {
     exec('apiary preview --server --port=' + config.apiaryPreviewPort, logOutput);
