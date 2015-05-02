@@ -1,0 +1,15 @@
+{
+  "name": "check2budget-api-docs",
+  "version": "0.1.0",
+  "apiaryName": "check2budget",
+  "apiaryPreviewPort": "8080",
+  "docFile": "apiary.apib",
+  "headerFile": "header.apib",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-concat": "^2.4.3",
+    "gulp-footer": "^1.0.5",
+    "gulp-header": "^1.2.2",
+    "gulp-shell": "^0.2.11"
+  }
+}
