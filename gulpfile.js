@@ -49,7 +49,11 @@ gulp.task('commit', function(){
       // now add all files that should be committed
       // but make sure to exclude the .gitignored ones, since gulp-git tries to commit them, too
       return gulp.src([ '!node_modules/', './*' ], {buffer:false})
-      .pipe(git.commit(res.commit));
+      .pipe(git.commit(res.commit))
+      .pipe( git.push('origin', 'master', function (err) {
+            if (err) throw err;
+        })
+      );
     }));
 });
 
@@ -59,7 +63,7 @@ gulp.task('push', function(){
   });
 });
 
-gulp.task('publish', ['build', 'add', 'commit', 'push']);
+gulp.task('publish', ['build', 'add', 'commit']);
 
 gulp.task('connect', function() {
     exec('apiary preview --server --port=' + config.apiaryPreviewPort, logOutput);
