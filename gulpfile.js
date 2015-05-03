@@ -49,8 +49,7 @@ gulp.task('commit', ['build'], function(){
         message: 'Please enter commit message...'
     },  function(res){
       return gulp.src([ '!node_modules/', './*' ], {buffer:false})
-      .pipe(git.commit(res.commit))
-      .pipe(wait('1500'));
+      .pipe(git.commit(res.commit));
     }));
 });
 
@@ -60,8 +59,12 @@ gulp.task('push', function(){
     });
 });
 
+gulp.task('wait', function(){
+    wait('1500');
+});
+
 gulp.task('publish', function() {
-    sequence('commit', 'push');
+    sequence('commit', 'wait', 'push');
 });
 
 gulp.task('connect', function() {
