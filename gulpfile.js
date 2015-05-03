@@ -32,13 +32,13 @@ gulp.task('validate', ['build'], function() {
     exec('drafter -l ' + config.docFile, logOutput);
 });
 
-gulp.task('add', function(){
-  return gulp.src(['./*', '!./node_modules/**'])
+gulp.task('add', ['build'], function(){
+  return gulp.src([ '!node_modules/', './*' ])
     .pipe(git.add());
 });
 
 // git commit task with gulp prompt
-gulp.task('commit', ['build'], function(){
+gulp.task('commit', ['add'], function(){
     // just source anything here - we just wan't to call the prompt for now
     return gulp.src('package.json')
     .pipe(prompt.prompt({
@@ -46,8 +46,7 @@ gulp.task('commit', ['build'], function(){
         name: 'commit',
         message: 'Please enter commit message...'
     },  function(res){
-      return gulp.src([ '!node_modules/', './*' ], {buffer:false})
-      .pipe(git.commit(res.commit));
+        exec('git commit -m "' + res.commit + '"')
     }));
 });
 
