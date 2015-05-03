@@ -54,17 +54,14 @@ gulp.task('commit', ['build'], function(){
 });
 
 gulp.task('push', function(){
-    return git.push('origin', 'master', function (err) {
-        if (err) return console.log(err);
-    });
-});
-
-gulp.task('wait', function(){
-    return wait('1500');
+    return wait('1500')
+        .pipe(git.push('origin', 'master', function (err) {
+            if (err) return console.log(err);
+        }));
 });
 
 gulp.task('publish', function() {
-    sequence('commit', 'wait', 'push');
+    sequence('commit', 'push');
 });
 
 gulp.task('connect', function() {
