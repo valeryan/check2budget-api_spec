@@ -6,6 +6,7 @@ var header = require('gulp-header');
 var footer = require('gulp-footer');
 var git = require('gulp-git');
 var prompt = require('gulp-prompt');
+var confirm = require('gulp-confirm');
 
 var apibFiles = [
     './**/*.apib',
@@ -51,7 +52,11 @@ gulp.task('commit', ['add'], function(){
 });
 
 gulp.task('push', ['commit'], function(){
-    return exec('git push origin master', logOutput);
+    return confirm({
+      question: 'Do you want to push? :',
+      input: '_key:y' // Continue the flow if `Y` key is pressed.
+    })
+    .pipe(exec('git push origin master', logOutput));
 });
 
 gulp.task('publish', ['commit', 'push']);
