@@ -52,10 +52,11 @@ gulp.task('commit', ['add'], function(){
 });
 
 gulp.task('push', ['commit'], function(){
-    confirm({
+    gulp.src([ '!node_modules/', './*' ])
+    .pipe(confirm({
       question: 'Do you want to push? :',
       input: '_key:y'
-    })
+    }))
     .pipe(exec('git push origin master', logOutput));
 });
 
