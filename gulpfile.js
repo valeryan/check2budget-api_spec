@@ -46,7 +46,7 @@ gulp.task('commit', ['add'], function(){
         name: 'commit',
         message: 'Please enter commit message...'
     },  function(res){
-        exec('git commit -m "' + res.commit + '"')
+        exec('git commit -m "' + res.commit + '"', logOutput);
     }));
 });
 
