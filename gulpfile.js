@@ -60,7 +60,7 @@ gulp.task('push', function(){
 });
 
 gulp.task('wait', function(){
-    return wait('6000');
+    return wait('1500');
 });
 
 gulp.task('publish', function() {
