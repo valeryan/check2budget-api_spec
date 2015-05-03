@@ -12,6 +12,8 @@
     "gulp-git": "^1.2.1",
     "gulp-header": "^1.2.2",
     "gulp-prompt": "^0.1.2",
-    "gulp-shell": "^0.2.11"
+    "gulp-shell": "^0.2.11",
+    "gulp-wait": "0.0.2",
+    "run-sequence": "^1.1.0"
   }
 }

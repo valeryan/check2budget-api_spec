@@ -6,7 +6,8 @@ var header = require('gulp-header');
 var footer = require('gulp-footer');
 var git = require('gulp-git');
 var prompt = require('gulp-prompt');
-
+var wait = require('gulp-wait');
+var sequence = require('run-sequence');
 
 var apibFiles = [
     './**/*.apib',
@@ -34,7 +35,7 @@ gulp.task('validate', ['build'], function() {
 });
 
 gulp.task('add', function(){
-  return gulp.src(['./*.apib', '!./node_modules/**'])
+  return gulp.src(['./*', '!./node_modules/**'])
     .pipe(git.add());
 });
 
@@ -47,18 +48,21 @@ gulp.task('commit', ['build'], function(){
         name: 'commit',
         message: 'Please enter commit message...'
     },  function(res){
-      return gulp.src([ '!node_modules/', './*.apib' ], {buffer:false})
-      .pipe(git.commit(res.commit));
+      return gulp.src([ '!node_modules/', './*' ], {buffer:false})
+      .pipe(git.commit(res.commit))
+      .pipe(wait('1500'));
     }));
 });
 
-gulp.task('push', ['commit'], function(){
-  git.push('origin', 'master', function (err) {
-    if (err) throw err;
-  });
+gulp.task('push', function(){
+    return git.push('origin', 'master', function (err) {
+        if (err) return console.log(err);
+    });
 });
 
-gulp.task('publish', ['push']);
+gulp.task('publish', function() {
+    sequence('commit', 'push');
+});
 
 gulp.task('connect', function() {
     exec('apiary preview --server --port=' + config.apiaryPreviewPort, logOutput);
