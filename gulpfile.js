@@ -6,7 +6,6 @@ var header = require('gulp-header');
 var footer = require('gulp-footer');
 var git = require('gulp-git');
 var prompt = require('gulp-prompt');
-var sequence = require('run-sequence');
 
 var apibFiles = [
     './**/*.apib',
