@@ -46,21 +46,17 @@ gulp.task('commit', ['add'], function(){
         name: 'commit',
         message: 'Please enter commit message...'
     },  function(res){
-        exec('git commit -m "' + res.commit + '"', logOutput);
+        return exec('git commit -m "' + res.commit + '"', logOutput);
     }));
 });
 
-gulp.task('push', function(){
+gulp.task('push', ['commit'], function(){
     return git.push('origin', 'master', function (err) {
         if (err) return console.log(err);
     });
 });
 
-gulp.task('publish', ['commit'], function(done) {
-    return git.push('origin', 'master', function (err) {
-        if (err) return console.log(err);
-    });
-});
+gulp.task('publish', ['commit', 'push']);
 
 gulp.task('connect', function() {
     exec('apiary preview --server --port=' + config.apiaryPreviewPort, logOutput);
