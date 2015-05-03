@@ -1,17 +1,18 @@
-## Group Bank
+## Group Banks
 
 Resources related to banks in the API.
 
-## Banks [/banks/{bank_id}]
+## List All Banks [/banks]
 
 A Bank object has the following attributes:
 
++ id
 + name
++ description
++ schedule
++ created_by
 
-+ Parameters
-    + bank_id (required, number, `1`) ... ID of the Bank in form of an integer
-
-### Retrieve a Bank [GET]
+### Retrieve a list of Banks [GET]
 
 + Response 200 (application/json)
 
@@ -21,15 +22,74 @@ A Bank object has the following attributes:
                 "errors": false,
                 "banks" : [
                     {
+                        "id" : 1
                         "name": "test bank",
                         "description" : "something about this bank",
-                        "creater_id" : "1"
+                        "schedule" : ["id" : 1, "name" : "Every 2 Weeks"],
+                        "created_by" : ["id" : 1, "name" : "Samuel Hilson", "username" : "Samuel"]
                     },
                     {
+                        "id" ; 2
                         "name": "test bank",
                         "description" : "something about this bank",
-                        "creater_id" : "1"
+                        "schedule" : ["id" : 1, "name" : "Every 2 Weeks"],
+                        "created_by" : ["id" : 1, "name" : "Samuel Hilson", "username" : "Samuel"]
                     }
                 ]
 
+            }
+
+## Bank By ID [/banks/{bank_id}]
+
++ Parameters
+    + bank_id (required, number, `1`) ... ID of the Bank in form of an integer
+
+### Retrieve a bank by ID [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "errors" : false,
+                "banks" : [
+                    {
+                        "id" : 1
+                        "name": "test bank",
+                        "description" : "something about this bank",
+                        "schedule" : ["id" : 1, "name" : "Every 2 Weeks"],
+                        "created_by" : ["id" : 1, "name" : "Samuel Hilson", "username" : "Samuel"]
+                    }
+                ]
+            }
+
+## Bank By User [/banks/user/{user_id}]
+
++ Parameters
+    + user_id (required, number, `1`) ... ID of the User in form of an integer
+
+### Retrieve a bank by user [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "errors" : false,
+                "banks" : [
+                    {
+                        "id" : 1
+                        "name": "test bank",
+                        "description" : "something about this bank",
+                        "schedule" : ["id" : 1, "name" : "Every 2 Weeks"],
+                        "created_by" : ["id" : 1, "name" : "Samuel Hilson", "username" : "Samuel"]
+                    },
+                    {
+                        "id" : 1
+                        "name": "test bank",
+                        "description" : "something about this bank",
+                        "schedule" : ["id" : 1, "name" : "Every 2 Weeks"],
+                        "created_by" : ["id" : 1, "name" : "Samuel Hilson", "username" : "Samuel"]
+                    }
+                ]
             }
