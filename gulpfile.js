@@ -51,7 +51,7 @@ gulp.task('commit', ['add'], function(){
 });
 
 gulp.task('push', ['commit'], function(){
-    return exec('git push -u origin master', logOutput);
+    return exec('git push origin master', logOutput);
 });
 
 gulp.task('publish', ['commit', 'push']);
