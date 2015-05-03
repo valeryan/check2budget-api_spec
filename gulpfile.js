@@ -6,7 +6,6 @@ var header = require('gulp-header');
 var footer = require('gulp-footer');
 var git = require('gulp-git');
 var prompt = require('gulp-prompt');
-var runSequence = require('run-sequence');
 
 
 var apibFiles = [
@@ -40,7 +39,7 @@ gulp.task('add', function(){
 });
 
 // git commit task with gulp prompt
-gulp.task('commit', function(){
+gulp.task('commit', ['build'], function(){
     // just source anything here - we just wan't to call the prompt for now
     return gulp.src('package.json')
     .pipe(prompt.prompt({
@@ -59,9 +58,7 @@ gulp.task('push', ['commit'], function(){
   });
 });
 
-gulp.task('publish', function() {
-    runSequence('build','commit', 'push');
-});
+gulp.task('publish', ['push']);
 
 gulp.task('connect', function() {
     exec('apiary preview --server --port=' + config.apiaryPreviewPort, logOutput);
