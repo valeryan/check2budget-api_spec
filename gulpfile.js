@@ -6,7 +6,6 @@ var header = require('gulp-header');
 var footer = require('gulp-footer');
 var git = require('gulp-git');
 var prompt = require('gulp-prompt');
-var wait = require('gulp-wait');
 var sequence = require('run-sequence');
 
 var apibFiles = [
@@ -54,14 +53,15 @@ gulp.task('commit', ['build'], function(){
 });
 
 gulp.task('push', function(){
-    return wait('1600000')
-        .pipe(git.push('origin', 'master', function (err) {
-            if (err) return console.log(err);
-        }));
+    return git.push('origin', 'master', function (err) {
+        if (err) return console.log(err);
+    });
 });
 
-gulp.task('publish', function() {
-    sequence('commit', 'push');
+gulp.task('publish', ['commit'], function(done) {
+    return git.push('origin', 'master', function (err) {
+        if (err) return console.log(err);
+    });
 });
 
 gulp.task('connect', function() {
