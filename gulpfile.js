@@ -57,9 +57,7 @@ gulp.task('push', ['commit'], function(){
       question: 'Do you want to push? :',
       input: '_key:y'
     }))
-    git.push('origin', 'master', function (err) {
-        if (err) throw err;
-    });
+    .pipe(exec('git push origin master'));
 });
 
 gulp.task('publish', ['commit', 'push']);
