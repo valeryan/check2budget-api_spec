@@ -85,7 +85,7 @@ A Bank object has the following attributes:
 
             {
                 "errors": false,
-                "details": "You have successfully crated a bank!"
+                "details": "You have successfully created a bank!"
             }
 
 ## Bank [/banks/{id}]
@@ -246,3 +246,28 @@ A User object has the following attributes:
                     }
                 ]
             }
+
+### Create a User [POST]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "username" : "samuel",
+                "last_name" : "Hilson",
+                "first_name" : "Samuel",
+                "email" : "samrhilson@gmail.com",
+                "password" : "password",
+                "_token": "generated-token"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "errors": false,
+                "details": "You have successfully registered!"
+            }
+
