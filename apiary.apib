@@ -208,3 +208,41 @@ A Bank object has the following attributes:
                 ]
             }
 
+
+## Group User
+
+Resources related to users in the API.
+
+## User Collection [/users]
+
+A User object has the following attributes:
+
++ id
++ username
++ last_name
++ first_name
++ email
++ active
++ role
+
+
+### Retrieve all Users [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "errors": false,
+                "users" : [
+                    {
+                        "id" : 1,
+                        "username" : "samuel",
+                        "last_name" : "Hilson",
+                        "first_name" : "Samuel",
+                        "email" : "samrhilson@gmail.com",
+                        "active" : 1,
+                        "role" : 1
+                    }
+                ]
+            }
