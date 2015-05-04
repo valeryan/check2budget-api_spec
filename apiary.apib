@@ -8,7 +8,7 @@ Check 2 Budget is an api for handling simple household budgets
 
 Resources related to banks in the API.
 
-## List All Banks [/banks]
+## Banks [/banks]
 
 A Bank object has the following attributes:
 
@@ -66,6 +66,33 @@ A Bank object has the following attributes:
                 ]
             }
 
+### Create a Bank [POST]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "name": "test bank",
+                "description": "something about this bank",
+                "schedule" :[
+                    {
+                        "id" : 1,
+                        "name" : "Every 2 Weeks"
+                    }
+                ],
+                "_token": "generated-token"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "errors": false,
+                "details": "You have successfully crated a bank!"
+            }
+
 ## Bank By ID [/banks/{bank_id}]
 
 + Parameters
@@ -100,6 +127,43 @@ A Bank object has the following attributes:
                     }
                 ]
             }
+
+### Create a Bank [POST]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "name": "test bank",
+                "description": "something about this bank",
+                "schedule" :[
+                    {
+                        "id" : 1,
+                        "name" : "Every 2 Weeks"
+                    }
+                ],
+                "_token": "generated-token"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "errors": false,
+                "details": "You have successfully edited a bank!"
+            }
+
+### Delete a Bank [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            "errors" : false,
+            "details" : "You have successfully deleted a bank!"
+        }
+
 
 ## Bank By User [/banks/user/{user_id}]
 
