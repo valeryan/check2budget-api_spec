@@ -2,7 +2,7 @@
 
 Resources related to banks in the API.
 
-## Banks [/banks]
+## Banks Collection[/banks]
 
 A Bank object has the following attributes:
 
@@ -12,7 +12,7 @@ A Bank object has the following attributes:
 + schedule
 + created_by
 
-### Retrieve a list of Banks [GET]
+### Retrieve all Banks [GET]
 
 + Response 200 (application/json)
 
@@ -82,12 +82,12 @@ A Bank object has the following attributes:
                 "details": "You have successfully crated a bank!"
             }
 
-## Bank By ID [/banks/{bank_id}]
+## Bank [/banks/{id}]
 
 + Parameters
-    + bank_id (required, number, `1`) ... ID of the Bank in form of an integer
+    + id (required, number, `1`) ... ID of the Bank in form of an integer
 
-### Retrieve a bank by ID [GET]
+### Retrieve a bank [GET]
 
 + Response 200 (application/json)
 
@@ -149,12 +149,12 @@ A Bank object has the following attributes:
         }
 
 
-## Bank By User [/banks/user/{user_id}]
+## Banks By User [/banks/user/{id}]
 
 + Parameters
-    + user_id (required, number, `1`) ... ID of the User in form of an integer
+    + id (required, number, `1`) ... ID of the User in form of an integer
 
-### Retrieve a bank by user [GET]
+### Retrieve banks by user [GET]
 
 + Response 200 (application/json)
 
