@@ -18,6 +18,9 @@ var handleExecError(done){
         if(err){
             done(err);
         }
+        else{
+            done();
+        }
 
         console.log(stdout);
         console.log(stderr);
