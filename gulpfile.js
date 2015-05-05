@@ -6,7 +6,6 @@ var header = require('gulp-header');
 var footer = require('gulp-footer');
 var git = require('gulp-git');
 var prompt = require('gulp-prompt');
-var confirm = require('gulp-confirm');
 
 var apibFiles = [
     './**/*.apib',
@@ -53,7 +52,7 @@ gulp.task('commit', ['build'], function(done){
     },  function(res) {
         gulp.src([ '!node_modules/', './*' ], {buffer:false})
         .pipe(git.commit(res.commit));
-        done();
+        return done();
     }));
 });
 
