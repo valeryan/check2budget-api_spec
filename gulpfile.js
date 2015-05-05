@@ -43,7 +43,7 @@ gulp.task('validate', ['build'], function(done) {
 });
 
 // git commit task with gulp prompt
-gulp.task('commit', function(done){
+gulp.task('commit', ['build'], function(done){
     // just source anything here - we just wan't to call the prompt for now
     gulp.src('package.json')
     .pipe(prompt.prompt({
