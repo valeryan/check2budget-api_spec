@@ -11,12 +11,18 @@ var confirm = require('gulp-confirm');
 var apibFiles = [
     './**/*.apib',
     '!./' + config.docFile,
-    ];
+];
 
-var logOutput = function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-};
+var handleExecError(done){
+    return function(err, stdout, stderr){
+        if(err){
+            done(err);
+        }
+
+        console.log(stdout);
+        console.log(stderr);
+    }
+}
 
 gulp.task('build', function(){
     var fs = require('fs');
@@ -29,8 +35,8 @@ gulp.task('build', function(){
         .pipe( gulp.dest( './' ) );
 });
 
-gulp.task('validate', ['build'], function() {
-    exec('drafter -l ' + config.docFile, logOutput);
+gulp.task('validate', ['build'], function(done) {
+    exec('drafter -l ' + config.docFile, handleExecError(done));
 });
 
 gulp.task('add', ['build'], function(){
@@ -47,26 +53,23 @@ gulp.task('commit', ['add'], function(done){
         name: 'commit',
         message: 'Please enter commit message...'
     },  function(res){
-        return exec('git commit -m "' + res.commit + '"', function(err, stdout, stderr){
-            logOutput(err, stdout, stderr);
-            done();
-        });
+        return exec('git commit -m "' + res.commit + '"', handleExecError(done));
     }));
 });
 
-gulp.task('push', ['commit'], function(){
+gulp.task('push', ['commit'], function(done){
     gulp.src([ '!node_modules/', './*' ])
     .pipe(confirm({
       question: 'Do you want to push? :',
       input: '_key:y'
     }))
-    exec('git push origin master');
+    exec('git push origin master', handleExecError(done));
 });
 
 gulp.task('publish', ['push']);
 
-gulp.task('connect', function() {
-    exec('apiary preview --server --port=' + config.apiaryPreviewPort, logOutput);
+gulp.task('connect', function(done) {
+    exec('apiary preview --server --port=' + config.apiaryPreviewPort, handleExecError(done));
 });
 
 gulp.task('default', ['connect'], function(done){
