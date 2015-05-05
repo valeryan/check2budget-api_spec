@@ -50,8 +50,8 @@ gulp.task('commit', function(done){
         type: 'input',
         name: 'commit',
         message: 'Please enter commit message...'
-    },  function(res){
-        gulp.src([ '!node_modules/', './*' ], {buffer:false})
+    },  function(res) {
+        return gulp.src([ '!node_modules/', './*' ], {buffer:false})
         .pipe(git.commit(res.commit));
         done();
     }));
