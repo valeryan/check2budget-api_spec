@@ -41,7 +41,8 @@ gulp.task('validate', ['build'], function(done) {
     exec('drafter -l ' + config.docFile, handleExecError(done));
 });
 
-var message = '';
+var message;
+
 gulp.task('message', ['build'], function(done){
     return gulp.src('package.json')
         .pipe(prompt.prompt({
