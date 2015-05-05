@@ -30,21 +30,20 @@ gulp.task('build', function(){
     var fs = require('fs');
     apibFiles.push('!./' + config.headerFile);
 
-    return gulp.src( apibFiles )
+    var stream = gulp.src( apibFiles )
         .pipe( footer(['', ''].join('\n')) )
         .pipe( concat( config.docFile ) )
         .pipe( header(  fs.readFileSync(config.headerFile) ) )
         .pipe( gulp.dest( './' ) );
+    return stream;
 });
 
 gulp.task('validate', ['build'], function(done) {
     exec('drafter -l ' + config.docFile, handleExecError(done));
 });
 
-// git commit task with gulp prompt
 gulp.task('commit', ['build'], function(done){
-    // just source anything here - we just wan't to call the prompt for now
-    gulp.src('package.json')
+    var stream = gulp.src('package.json')
     .pipe(prompt.prompt({
         type: 'input',
         name: 'commit',
@@ -52,8 +51,8 @@ gulp.task('commit', ['build'], function(done){
     },  function(res) {
         gulp.src([ '!node_modules/', './*' ], {buffer:false})
         .pipe(git.commit(res.commit));
-        return done();
     }));
+    return stream;
 });
 
 gulp.task('push', ['commit'], function(done){
