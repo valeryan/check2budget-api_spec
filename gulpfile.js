@@ -30,7 +30,7 @@ gulp.task('build', function(){
     var fs = require('fs');
     apibFiles.push('!./' + config.headerFile);
 
-    gulp.src( apibFiles )
+    return gulp.src( apibFiles )
         .pipe( footer(['', ''].join('\n')) )
         .pipe( concat( config.docFile ) )
         .pipe( header(  fs.readFileSync(config.headerFile) ) )
