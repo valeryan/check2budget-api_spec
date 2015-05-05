@@ -30,29 +30,32 @@ gulp.task('build', function(){
     var fs = require('fs');
     apibFiles.push('!./' + config.headerFile);
 
-    var stream = gulp.src( apibFiles )
+    gulp.src( apibFiles )
         .pipe( footer(['', ''].join('\n')) )
         .pipe( concat( config.docFile ) )
         .pipe( header(  fs.readFileSync(config.headerFile) ) )
         .pipe( gulp.dest( './' ) );
-    return stream;
 });
 
 gulp.task('validate', ['build'], function(done) {
     exec('drafter -l ' + config.docFile, handleExecError(done));
 });
 
-gulp.task('commit', ['build'], function(done){
-    var stream = gulp.src('package.json')
-    .pipe(prompt.prompt({
-        type: 'input',
-        name: 'commit',
-        message: 'Please enter commit message...'
-    },  function(res) {
-        gulp.src([ '!node_modules/', './*' ], {buffer:false})
-        .pipe(git.commit(res.commit));
-    }));
-    return stream;
+var message = '';
+gulp.task('message', ['build'], function(done){
+    return gulp.src('package.json')
+        .pipe(prompt.prompt({
+            type: 'input',
+            name: 'commit',
+            message: 'Please enter commit message...'
+        },  function(res) {
+            message = res.commit;
+        }));
+});
+
+gulp.task('commit', ['message'], function(done) {
+    return gulp.src([ '!node_modules/', './*' ], {buffer:false})
+               .pipe(git.commit(message));
 });
 
 gulp.task('push', ['commit'], function(done){
