@@ -39,15 +39,18 @@ gulp.task('add', ['build'], function(){
 });
 
 // git commit task with gulp prompt
-gulp.task('commit', ['add'], function(){
+gulp.task('commit', ['add'], function(done){
     // just source anything here - we just wan't to call the prompt for now
-    return gulp.src('package.json')
+    gulp.src('package.json')
     .pipe(prompt.prompt({
         type: 'input',
         name: 'commit',
         message: 'Please enter commit message...'
     },  function(res){
-        return exec('git commit -m "' + res.commit + '"', logOutput);
+        return exec('git commit -m "' + res.commit + '"', function(err, stdout, stderr){
+            logOutput(err, stdout, stderr);
+            done();
+        });
     }));
 });
 
