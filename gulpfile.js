@@ -60,7 +60,7 @@ gulp.task('commit', ['message'], function(done) {
 });
 
 gulp.task('push', ['commit'], function(done){
-    git.push('origin', 'master', function (err) {
+    return git.push('origin', 'master', function (err) {
         if (err) throw err;
     });
 });
