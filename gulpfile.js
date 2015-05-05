@@ -63,7 +63,7 @@ gulp.task('push', ['commit'], function(){
     exec('git push origin master');
 });
 
-gulp.task('publish', ['commit', 'push']);
+gulp.task('publish', ['push']);
 
 gulp.task('connect', function() {
     exec('apiary preview --server --port=' + config.apiaryPreviewPort, logOutput);
