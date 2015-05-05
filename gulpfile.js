@@ -13,7 +13,7 @@ var apibFiles = [
     '!./' + config.docFile,
 ];
 
-var handleExecError(done){
+function handleExecError(done){
     return function(err, stdout, stderr){
         if(err){
             done(err);
@@ -42,13 +42,8 @@ gulp.task('validate', ['build'], function(done) {
     exec('drafter -l ' + config.docFile, handleExecError(done));
 });
 
-gulp.task('add', ['build'], function(){
-  return gulp.src([ '!node_modules/', './*' ])
-    .pipe(git.add());
-});
-
 // git commit task with gulp prompt
-gulp.task('commit', ['add'], function(done){
+gulp.task('commit', function(done){
     // just source anything here - we just wan't to call the prompt for now
     gulp.src('package.json')
     .pipe(prompt.prompt({
@@ -56,17 +51,16 @@ gulp.task('commit', ['add'], function(done){
         name: 'commit',
         message: 'Please enter commit message...'
     },  function(res){
-        return exec('git commit -m "' + res.commit + '"', handleExecError(done));
+        gulp.src([ '!node_modules/', './*' ], {buffer:false})
+        .pipe(git.commit(res.commit));
+        done();
     }));
 });
 
 gulp.task('push', ['commit'], function(done){
-    gulp.src([ '!node_modules/', './*' ])
-    .pipe(confirm({
-      question: 'Do you want to push? :',
-      input: '_key:y'
-    }))
-    exec('git push origin master', handleExecError(done));
+    git.push('origin', 'master', function (err) {
+        if (err) throw err;
+    });
 });
 
 gulp.task('publish', ['push']);
