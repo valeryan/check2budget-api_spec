@@ -53,6 +53,7 @@ gulp.task('commit', function(done){
     },  function(res) {
         gulp.src([ '!node_modules/', './*' ], {buffer:false})
         .pipe(git.commit(res.commit));
+        done();
     }));
 });
 
